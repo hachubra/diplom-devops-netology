@@ -34,24 +34,6 @@ variable "subnets" {
 }
 
 
-# variable "vpc_name" {
-#   type        = string
-#   default     = "develop"
-#   description = "VPC network & subnet name"
-# }
-
-# variable "vm_web_family" {
-#   type        = string
-#   default     = "ubuntu-2404-lts"
-#   description = "Yandex compute image family"
-# }
-
-# variable "vm_web_platform_id" {
-#   type        = string
-#   default     = "standard-v2"
-#   description = "Yandex compute VM platform id"
-}
-
 variable "vm_nodes_preemptible" {
   type        = bool
   default     = true
@@ -94,7 +76,7 @@ variable "vms_resources" {
             core_fraction=20
             boot_disk_type="network-ssd"
             boot_disk_size=20
-            image = "fd86rorl7r6l2nq3ate6" 
+            image = "fd86rorl7r6l2nq3ate6" #ubuntu 24.04
         }  
     }    
 }
