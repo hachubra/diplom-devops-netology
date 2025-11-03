@@ -135,7 +135,7 @@ resource "local_file" "providers" {
 
 Убеждаемся, что S3 bucket создан и шифрование включено:
 
-скриншот3
+![screenshot1](https://github.com/hachubra/diplom-devops-netology/blob/main/img/Screenshot_3.png)
 
 </details>
 
@@ -161,12 +161,11 @@ external_ip_nodes = tolist([
   "158.160.203.154",
 ])
 ```
-Скриншот4
+![screenshot1](https://github.com/hachubra/diplom-devops-netology/blob/main/img/Screenshot_4.png)
 
 проверяем, что tfstate хранится в S3 bucket:
 
-скриншот 5
-
+![screenshot1](https://github.com/hachubra/diplom-devops-netology/blob/main/img/Screenshot_5.png)
 </details>
 
 ---
@@ -345,9 +344,9 @@ docker tag myapp-test:latest cr.yandex/crpp9acq3pqq72ip67ni/myapp-test:0.1
 docker push cr.yandex/crpp9acq3pqq72ip67ni/myapp-test:0.1 
 ```
 
-Скриншот 6
+![screenshot1](https://github.com/hachubra/diplom-devops-netology/blob/main/img/Screenshot_6.png)
 
-Скриншот 7
+![screenshot1](https://github.com/hachubra/diplom-devops-netology/blob/main/img/Screenshot_7.png)
 
 </details>
 
@@ -531,8 +530,8 @@ apptest-bd656c77-llfcv   1/1     Running   0          7s
 apptest-bd656c77-nxdjn   1/1     Running   0          7s
 ```
 
-Скриншот8
-Скриншот9
+![screenshot1](https://github.com/hachubra/diplom-devops-netology/blob/main/img/Screenshot_8.png)
+![screenshot1](https://github.com/hachubra/diplom-devops-netology/blob/main/img/Screenshot_9.png)
 
 </details>
 
@@ -601,9 +600,8 @@ prometheus-operator-66cffd595f-p7fx8   2/2     Running   0          71s
 ```
 Проверим, что grafana доступна из интернета:
 
-скриншот 10
-
-скриншот 11
+![screenshot1](https://github.com/hachubra/diplom-devops-netology/blob/main/img/Screenshot_10.png)
+![screenshot1](https://github.com/hachubra/diplom-devops-netology/blob/main/img/Screenshot_11.png)
 
 </details>
 
