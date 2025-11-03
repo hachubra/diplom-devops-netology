@@ -24,8 +24,8 @@
 ---
 ## Этапы выполнения:
 
-
 ### Создание облачной инфраструктуры
+<details> <summary> Задача 1</summary>
 
 Для начала необходимо подготовить облачную инфраструктуру в ЯО при помощи [Terraform](https://www.terraform.io/).
 
@@ -44,14 +44,32 @@
 4. Создайте VPC с подсетями в разных зонах доступности.
 5. Убедитесь, что теперь вы можете выполнить команды `terraform destroy` и `terraform apply` без дополнительных ручных действий.
 6. В случае использования [Terraform Cloud](https://app.terraform.io/) в качестве [backend](https://developer.hashicorp.com/terraform/language/backend) убедитесь, что применение изменений успешно проходит, используя web-интерфейс Terraform cloud.
+</details>
 
-Ожидаемые результаты:
+<details> <summary> Ожидаемые результаты:</summary> 
 
 1. Terraform сконфигурирован и создание инфраструктуры посредством Terraform возможно без дополнительных ручных действий, стейт основной конфигурации сохраняется в бакете или Terraform Cloud
 2. Полученная конфигурация инфраструктуры является предварительной, поэтому в ходе дальнейшего выполнения задания возможны изменения.
+</details>
+
+#### Решение 1.
+
+<details> <summary> Подготовка облачной инфраструктуры Terraform</summary> 
+
+
+</details>
+
+
+<details> <summary> Развертывание облачной инфраструктуры Terraform</summary> 
+
+
+</details>
 
 ---
+
 ### Создание Kubernetes кластера
+
+<details> <summary> Задача 2 </summary>
 
 На этом этапе необходимо создать [Kubernetes](https://kubernetes.io/ru/docs/concepts/overview/what-is-kubernetes/) кластер на базе предварительно созданной инфраструктуры.   Требуется обеспечить доступ к ресурсам из Интернета.
 
@@ -65,14 +83,30 @@
   а. С помощью terraform resource для [kubernetes](https://registry.terraform.io/providers/yandex-cloud/yandex/latest/docs/resources/kubernetes_cluster) создать **региональный** мастер kubernetes с размещением нод в разных 3 подсетях      
   б. С помощью terraform resource для [kubernetes node group](https://registry.terraform.io/providers/yandex-cloud/yandex/latest/docs/resources/kubernetes_node_group)
   
-Ожидаемый результат:
+</details>
+
+<details><summary>Ожидаемый результат:</summary>
 
 1. Работоспособный Kubernetes кластер.
 2. В файле `~/.kube/config` находятся данные для доступа к кластеру.
 3. Команда `kubectl get pods --all-namespaces` отрабатывает без ошибок.
 
+</details>
+
+#### Решение 2
+
+<details><summary>Развертывание кластера Kubernetes</summary>
+
+</details>
+
+<details><summary>Проверка работы кластера Kubernetes</summary>
+
+</details>
+
 ---
 ### Создание тестового приложения
+
+<details> <summary> Задача 3</summary>
 
 Для перехода к следующему этапу необходимо подготовить тестовое приложение, эмулирующее основное приложение разрабатываемое вашей компанией.
 
@@ -84,13 +118,32 @@
 2. Альтернативный вариант:  
    а. Используйте любой другой код, главное, чтобы был самостоятельно создан Dockerfile.
 
-Ожидаемый результат:
+</details> 
+
+<details><summary>Ожидаемый результат:</summary>
 
 1. Git репозиторий с тестовым приложением и Dockerfile.
 2. Регистри с собранным docker image. В качестве регистри может быть DockerHub или [Yandex Container Registry](https://cloud.yandex.ru/services/container-registry), созданный также с помощью terraform.
+</details> 
+
+#### Решение 3
+
+<details><summary>Создание Registry в Яндекс облаке.</summary>
+
+</details>
+
+<details><summary>Подготовка Service и Deployment</summary>
+
+</details>
+
+<details><summary>Добавление NLB</summary>
+
+</details>
 
 ---
 ### Подготовка cистемы мониторинга и деплой приложения
+
+<details> <summary> Задача 4</summary>
 
 Уже должны быть готовы конфигурации для автоматического создания облачной инфраструктуры и поднятия Kubernetes кластера.  
 Теперь необходимо подготовить конфигурационные файлы для настройки нашего Kubernetes кластера.
@@ -99,21 +152,44 @@
 1. Задеплоить в кластер [prometheus](https://prometheus.io/), [grafana](https://grafana.com/), [alertmanager](https://github.com/prometheus/alertmanager), [экспортер](https://github.com/prometheus/node_exporter) основных метрик Kubernetes.
 2. Задеплоить тестовое приложение, например, [nginx](https://www.nginx.com/) сервер отдающий статическую страницу.
 
-Способ выполнения:
+</details>
+<details> <summary> Способ выполнения:</summary>
+
 1. Воспользоваться пакетом [kube-prometheus](https://github.com/prometheus-operator/kube-prometheus), который уже включает в себя [Kubernetes оператор](https://operatorhub.io/) для [grafana](https://grafana.com/), [prometheus](https://prometheus.io/), [alertmanager](https://github.com/prometheus/alertmanager) и [node_exporter](https://github.com/prometheus/node_exporter). Альтернативный вариант - использовать набор helm чартов от [bitnami](https://github.com/bitnami/charts/tree/main/bitnami).
 
-### Деплой инфраструктуры в terraform pipeline
+</details>
+<details> <summary> Деплой инфраструктуры в terraform pipeline   </summary>
 
 1. Если на первом этапе вы не воспользовались [Terraform Cloud](https://app.terraform.io/), то задеплойте и настройте в кластере [atlantis](https://www.runatlantis.io/) для отслеживания изменений инфраструктуры. Альтернативный вариант 3 задания: вместо Terraform Cloud или atlantis настройте на автоматический запуск и применение конфигурации terraform из вашего git-репозитория в выбранной вами CI-CD системе при любом комите в main ветку. Предоставьте скриншоты работы пайплайна из CI/CD системы.
+</details> 
 
-Ожидаемый результат:
+<details> <summary> Ожидаемый результат:  </summary>
+
 1. Git репозиторий с конфигурационными файлами для настройки Kubernetes.
 2. Http доступ на 80 порту к web интерфейсу grafana.
 3. Дашборды в grafana отображающие состояние Kubernetes кластера.
 4. Http доступ на 80 порту к тестовому приложению.
 5. Atlantis или terraform cloud или ci/cd-terraform
+</details> 
+
+#### Решение 4
+
+<details><summary> Установка пакетов  </summary>
+[kube-prometheus](https://github.com/prometheus-operator/kube-prometheus)
+</details>
+
+<details><summary>яяяя</summary>
+
+</details>
+
+<details><summary>яяяя</summary>
+
+</details>
+
+
 ---
 ### Установка и настройка CI/CD
+<details> <summary> Задача 5</summary>
 
 Осталось настроить ci/cd систему для автоматической сборки docker image и деплоя приложения при изменении кода.
 
@@ -124,14 +200,34 @@
 
 Можно использовать [teamcity](https://www.jetbrains.com/ru-ru/teamcity/), [jenkins](https://www.jenkins.io/), [GitLab CI](https://about.gitlab.com/stages-devops-lifecycle/continuous-integration/) или GitHub Actions.
 
-Ожидаемый результат:
+</details> 
+
+<details> <summary> Ожидаемый результат: </summary>
 
 1. Интерфейс ci/cd сервиса доступен по http.
 2. При любом коммите в репозиторие с тестовым приложением происходит сборка и отправка в регистр Docker образа.
 3. При создании тега (например, v1.0.0) происходит сборка и отправка с соответствующим label в регистри, а также деплой соответствующего Docker образа в кластер Kubernetes.
+</details>
+
+#### Решение 5
+
+<details><summary> zzzzz </summary>
+
+</details>
+
+<details><summary>яяяя</summary>
+
+</details>
+
+<details><summary>яяяя</summary>
+
+</details>
+
 
 ---
 ## Что необходимо для сдачи задания?
+
+<details><summary> Итоговые требования</summary>
 
 1. Репозиторий с конфигурационными файлами Terraform и готовность продемонстрировать создание всех ресурсов с нуля.
 2. Пример pull request с комментариями созданными atlantis'ом или снимки экрана из Terraform Cloud или вашего CI-CD-terraform pipeline.
@@ -140,4 +236,12 @@
 5. Репозиторий с конфигурацией Kubernetes кластера.
 6. Ссылка на тестовое приложение и веб интерфейс Grafana с данными доступа.
 7. Все репозитории рекомендуется хранить на одном ресурсе (github, gitlab)
+
+</details>
+
+#### Итоговые ссылки
+
+<details><summary> zzzzz </summary>
+ву
+</details>
 
