@@ -899,7 +899,7 @@ git push https://github.com/hachubra/apptest.git main --tags v1.40
 
 <details><summary>Ссылки:</summary>
 
-1. [Репозиторий с конфигурационными файлами Terraform](hhttps://github.com/hachubra/diplom-devops-netology/tree/main/terraform)
+1. [Репозиторий с конфигурационными файлами Terraform](https://github.com/hachubra/diplom-devops-netology/tree/main/terraform)
 2. [Реопзиторий для Ansible](https://github.com/netology-code/devops-materials/blob/master/cloudwork.MD)
 3. [Dockerfile](https://github.com/hachubra/apptest/blob/main/docker/Dockerfile) и Ссылка на образ: **"docker pull cr.yandex/crpp9acq3pqq72ip67ni/myapp-test:v1.41"**
 4. [Репозиторий с конфигурацией Kubernetes](https://github.com/kubernetes-sigs/kubespray)
