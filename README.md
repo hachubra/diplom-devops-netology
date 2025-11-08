@@ -758,7 +758,6 @@ Git репозиторий: https://github.com/hachubra/apptest.git
 
 Для CI\CD также воспользуемся Github Actions.
 
-
 <details><summary> Манифест workflow для афтоматической сборки и развертывания тестового приложения</summary>
 
 ```yaml
