@@ -710,12 +710,27 @@ jobs:
 ```
 </details>
 
+<details><summary>Дашборды Grafana по 80 порту: </summary>
+
+
+![screenshot1](https://github.com/hachubra/diplom-devops-netology/blob/main/img/Screenshot_13.png)
+
+</details>
+
+<details><summary>Доступ к приложению по 80 порту:  </summary>
+
+
+![screenshot1](https://github.com/hachubra/diplom-devops-netology/blob/main/img/Screenshot_14.png)
+
+</details>
+
 Git репозиторий: https://github.com/hachubra/apptest.git
 
-Выполение задачи при коммите в репозиторий: 
+<details><summary>Выполение задачи при коммите в репозиторий:  </summary>
 
 ![screenshot1](https://github.com/hachubra/diplom-devops-netology/blob/main/img/Screenshot_12.png)
 
+</details>
 
 ---
 ### Установка и настройка CI/CD 
