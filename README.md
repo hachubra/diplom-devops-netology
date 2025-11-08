@@ -624,16 +624,101 @@ prometheus-operator-66cffd595f-p7fx8   2/2     Running   0          71s
 
 #### Решение 5
 
-<details><summary>Пяяя</summary>
+<details><summary>сменим настройки NLB для Grafana</summary>
 
+Изменим манифест, чтобы NLB для Grafana слушал 80 порт:
+
+```yaml
+resource "yandex_lb_network_load_balancer" "nlb-grf" {
+
+  name = "nlb-diplom-grafana"
+
+  listener {
+    name        = "grafana-listener"
+    port        = 80
+    target_port = 30300
+    external_address_spec {
+      ip_version = "ipv4"
+    }
+  }
+
+  attached_target_group {
+    target_group_id = yandex_lb_target_group.nlb-group-diplom.id
+
+    healthcheck {
+      name = "healthcheck"
+      tcp_options {
+        port = 30300
+      }
+    }
+  }
+  depends_on = [yandex_lb_target_group.nlb-group-diplom]
+}
+```
 </details>
 
-<details><summary>яяя</summary>
 
+
+Для автоматического применения конфигурации terraform воспользуемся github actions. Для этого создадим workflow.
+
+<details><summary>workflow:</summary>
+
+```yaml
+name: Deploy to Yandex Cloud
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      working-directory: terraform/
+    defaults:
+      run:
+        working-directory: ${{ env.working-directory }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: IAM Token
+        id: issue-iam-token
+        uses: yc-actions/yc-iam-token@v1
+        with:
+          yc-sa-json-credentials: ${{ secrets.YCAUTHKEYJSON }}
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 1.9.4
+          
+      - name: Terraform Init
+        id: init
+        run: terraform init -backend-config="access_key=${{ secrets.YCACCESSKEY }}" -backend-config="secret_key=${{ secrets.YCSECRETKEY }}" -var "token=${{ secrets.YCOAUTHTOKEN }}" 
+
+      - name: Terraform Plan
+        id: plan
+        run: terraform plan -var "token=${{ secrets.YCOAUTHTOKEN }}" -var "SSHKEY=${{ secrets.SSHKEY }}"  -out plan.tfplan
+        
+      - name: Terraform Plan Status
+        if: steps.plan.outcome == 'failure'
+        run: exit 1
+
+      - name: Terraform Apply
+        run: terraform apply  -auto-approve plan.tfplan
+```
 </details>
+
+Git репозиторий: https://github.com/hachubra/apptest.git
+
+Выполение задачи при коммите в репозиторий: 
+
+![screenshot1](https://github.com/hachubra/diplom-devops-netology/blob/main/img/Screenshot_12.png)
+
 
 ---
-### Установка и настройка CI/CD
+### Установка и настройка CI/CD 
 <details> <summary> Задача 6</summary>
 
 Осталось настроить ci/cd систему для автоматической сборки docker image и деплоя приложения при изменении кода.
