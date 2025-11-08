@@ -871,7 +871,7 @@ git push https://github.com/hachubra/apptest.git main --tags v1.40
 ![screenshot1](https://github.com/hachubra/diplom-devops-netology/blob/main/img/Screenshot_20.png)
 </details>
 
-<details><summary>Запускаем коммти еще раз и убеждаемся с помощью браузера, что все проходит успешно:</summary>
+<details><summary>Запускаем commit еще раз и убеждаемся с помощью браузера, что все проходит успешно:</summary>
 ![screenshot1](https://github.com/hachubra/diplom-devops-netology/blob/main/img/Screenshot_22.png)
 ![screenshot1](https://github.com/hachubra/diplom-devops-netology/blob/main/img/Screenshot_23.png)
 </details>
