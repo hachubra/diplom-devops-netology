@@ -897,7 +897,8 @@ git push https://github.com/hachubra/apptest.git main --tags v1.40
 
 #### Ссылки на репозитории
 
-<details><summary>Ссылки:</summary>
+<details><summary>Ссылки</summary>
+
 
 1. [Репозиторий с конфигурационными файлами Terraform](https://github.com/hachubra/diplom-devops-netology/tree/main/terraform)
 2. [Реопзиторий для Ansible](https://github.com/netology-code/devops-materials/blob/master/cloudwork.MD)
@@ -905,5 +906,6 @@ git push https://github.com/hachubra/apptest.git main --tags v1.40
 4. [Репозиторий с конфигурацией Kubernetes](https://github.com/kubernetes-sigs/kubespray)
 5. [Тестовое приложение](http://158.160.189.242/)
 6. [Веб интерфейс Grafana](http://130.193.59.122/). Реквизиты будут направлены вместе с заданием.
+
 </details>
 
