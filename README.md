@@ -842,6 +842,7 @@ jobs:
 
 
 <details><summary>Используемые секреты для Github Actions:</summary>
+
 ![screenshot1](https://github.com/hachubra/diplom-devops-netology/blob/main/img/Screenshot_15.png)
 
 </details>
@@ -857,20 +858,24 @@ git push https://github.com/hachubra/apptest.git main --tags v1.40
 </details>
 
 <details><summary>Успешный запуск workflow:</summary>
+
 ![screenshot1](https://github.com/hachubra/diplom-devops-netology/blob/main/img/Screenshot_16.png)
 ![screenshot1](https://github.com/hachubra/diplom-devops-netology/blob/main/img/Screenshot_17.png)
 </details>
 
 
 <details><summary>Проверка автоматической установки тэга в приложении:</summary>
+
 ![screenshot1](https://github.com/hachubra/diplom-devops-netology/blob/main/img/Screenshot_18.png)
 </details>
 
 <details><summary>Установка тэгов для Image в Registry:</summary>
+
 ![screenshot1](https://github.com/hachubra/diplom-devops-netology/blob/main/img/Screenshot_20.png)
 </details>
 
 <details><summary>Запускаем commit еще раз и убеждаемся с помощью браузера, что все проходит успешно:</summary>
+
 ![screenshot1](https://github.com/hachubra/diplom-devops-netology/blob/main/img/Screenshot_22.png)
 ![screenshot1](https://github.com/hachubra/diplom-devops-netology/blob/main/img/Screenshot_23.png)
 </details>
@@ -890,9 +895,15 @@ git push https://github.com/hachubra/apptest.git main --tags v1.40
 
 </details>
 
-#### Итоговые ссылки
+#### Ссылки на репозитории
 
-<details><summary> zzzzz </summary>
-ву
+<details><summary>Ссылки:</summary>
+
+1. [Репозиторий с конфигурационными файлами Terraform](hhttps://github.com/hachubra/diplom-devops-netology/tree/main/terraform)
+2. [Реопзиторий для Ansible](https://github.com/netology-code/devops-materials/blob/master/cloudwork.MD)
+3. [Dockerfile](https://github.com/hachubra/apptest/blob/main/docker/Dockerfile) и Ссылка на образ: **"docker pull cr.yandex/crpp9acq3pqq72ip67ni/myapp-test:v1.41"**
+4. [Репозиторий с конфигурацией Kubernetes](https://github.com/kubernetes-sigs/kubespray)
+5. [Тестовое приложение](http://158.160.189.242/)
+6. [Веб интерфейс Grafana](http://130.193.59.122/). Реквизиты будут направлены вместе с заданием.
 </details>
 
