@@ -756,18 +756,125 @@ Git репозиторий: https://github.com/hachubra/apptest.git
 
 #### Решение 6
 
-<details><summary> zzzzz </summary>
+Для CI\CD также воспользуемся Github Actions.
+
+
+<details><summary> Манифест workflow для афтоматической сборки и развертывания тестового приложения</summary>
+
+```yaml
+name: "Testapp deploy CI/CD"
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - '*'
+
+jobs:
+  deploy:
+    name: Build and Deploy testapp
+    outputs:
+      image_tag: ${{ env.TAG }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Login to Yandex Cloud Container Registry
+        id: login-cr
+        uses: yc-actions/yc-cr-login@v2
+        with:
+          yc-sa-json-credentials: ${{ secrets.YCAUTHKEYJSON }}
+
+      - name: Get tag
+        run: |
+          TAG=${GITHUB_REF#refs/tags/}
+          echo "Current tag: $TAG"
+
+      - name: Build, and push image to Yandex Cloud Container Registry
+        if: github.ref_type != 'tag' && github.event_name == 'push'
+        env:
+          CR_REGISTRY: crpp9acq3pqq72ip67ni
+          CR_REPOSITORY: myapp-test
+          IMAGE_TAG: ${GITHUB_REF#refs/tags/}
+        run: |
+          docker build -t cr.yandex/$CR_REGISTRY/$CR_REPOSITORY ./docker/
+          docker push cr.yandex/$CR_REGISTRY/$CR_REPOSITORY
+
+      - name: Build, tag, and push image to Yandex Cloud Container Registry
+        if: github.ref_type == 'tag' # ==
+        env:
+          CR_REGISTRY: crpp9acq3pqq72ip67ni
+          CR_REPOSITORY: myapp-test
+          IMAGE_TAG: ${GITHUB_REF#refs/tags/} 
+        run: |
+          TAG=${GITHUB_REF#refs/tags/} 
+          sudo sed -i "s/tag/$TAG/" ./docker/myapp/index.html 
+          docker build -t cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$TAG ./docker/
+          docker push cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$TAG
+
+      - name: Prepare deployment
+        if: github.ref_type == 'tag' # ==
+        env:
+          IMAGE_TAG: ${GITHUB_REF#refs/tags/}
+        run: |
+          TAG=${GITHUB_REF#refs/tags/} 
+          # mkdir ./deploy1/
+          # cp -r ./deploy/ ./deploy1/
+          sudo sed -i "s/0.1/$TAG/" ./deploy/deployment.yml 
+          sudo sed -i "s/first/$TAG/" ./deploy/deployment.yml
+
+      - name: Deploy app
+        if: github.ref_type == 'tag' # == 
+        uses: actions-hub/kubectl@master
+        env:
+          KUBE_CONFIG: ${{ secrets.CONFG_K8S }}
+        with:
+          args: apply -f ./deploy/ -n nsapptest --insecure-skip-tls-verify
+
+      - name: Check deployment
+        if: github.ref_type == 'tag' # ==
+        run: |
+         sudo cat ./deploy/deployment.yml 
+```
+</details>
+
+
+<details><summary>Используемые секреты для Github Actions:</summary>
+![screenshot1](https://github.com/hachubra/diplom-devops-netology/blob/main/img/Screenshot_15.png)
 
 </details>
 
-<details><summary>яяяя</summary>
+<details><summary>Commit в репозиторий:</summary>
 
+```bash
+git commit -am "v1.40"
+git tag v1.40
+git push https://github.com/hachubra/apptest.git main --tags v1.40
+```
+![screenshot1](https://github.com/hachubra/diplom-devops-netology/blob/main/img/Screenshot_21.png)
 </details>
 
-<details><summary>яяяя</summary>
-
+<details><summary>Успешный запуск workflow:</summary>
+![screenshot1](https://github.com/hachubra/diplom-devops-netology/blob/main/img/Screenshot_16.png)
+![screenshot1](https://github.com/hachubra/diplom-devops-netology/blob/main/img/Screenshot_17.png)
 </details>
 
+
+<details><summary>Проверка автоматической установки тэга в приложении:</summary>
+![screenshot1](https://github.com/hachubra/diplom-devops-netology/blob/main/img/Screenshot_18.png)
+</details>
+
+<details><summary>Установка тэгов для Image в Registry:</summary>
+![screenshot1](https://github.com/hachubra/diplom-devops-netology/blob/main/img/Screenshot_20.png)
+</details>
+
+<details><summary>Запускаем коммти еще раз и убеждаемся с помощью браузера, что все проходит успешно:</summary>
+![screenshot1](https://github.com/hachubra/diplom-devops-netology/blob/main/img/Screenshot_22.png)
+![screenshot1](https://github.com/hachubra/diplom-devops-netology/blob/main/img/Screenshot_23.png)
+</details>
 
 ---
 ## Что необходимо для сдачи задания?
